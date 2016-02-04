@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.21005.1
+VisualStudioVersion = 12.0.30723.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = ".nuget", ".nuget", "{1F1B4F0F-2998-4D74-865B-9122611C2B14}"
 	ProjectSection(SolutionItems) = preProject
@@ -23,6 +23,12 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Data.Toolbox.Twitter
 EndProject
 Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Data.Toolbox.Sas", "src\FSharp.Data.Toolbox.Sas\FSharp.Data.Toolbox.Sas.fsproj", "{A771F695-4292-4465-93A5-CBE19DF024A9}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HDF5", "HDF5", "{06A31AEC-7A87-4FD9-9610-7B2FE63654F6}"
+EndProject
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BuildH5Wrapper", "BuildH5Wrapper\BuildH5Wrapper.fsproj", "{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseHdf5Interface", "ParseHdf5Interface\ParseHdf5Interface.csproj", "{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -37,8 +43,20 @@ Global
 		{A771F695-4292-4465-93A5-CBE19DF024A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A771F695-4292-4465-93A5-CBE19DF024A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A771F695-4292-4465-93A5-CBE19DF024A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{C392F45C-3834-45B5-B9FD-DD54D23C6DDD} = {06A31AEC-7A87-4FD9-9610-7B2FE63654F6}
+		{C2A9049D-6F38-4DE7-85B3-09C6DC143B08} = {06A31AEC-7A87-4FD9-9610-7B2FE63654F6}
 	EndGlobalSection
 EndGlobal
