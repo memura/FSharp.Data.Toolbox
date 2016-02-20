@@ -15,6 +15,8 @@ namespace ParseHdf5Interface
         public static Regex reVoidCharStar = new Regex(@"void\s+char\s+\*", reOptions);
         public static Regex reConstCharStar = new Regex(@"const\s+char\s+\*", reOptions);
         public static Regex reIntPtr = new Regex(@"(const\s+void\s*\*|void\s*\*|void\s*\*\*)", reOptions);
+        public static Regex reSimpleEnum = new Regex(@"enum\s+([A-Za-z0-9_]+)\s+\{([^\}]+)\}\s*\;", reOptions);
+        public static Regex reTypedefEnum = new Regex(@"typedef\s+enum\s*([A-Za-z0-9_]*)\s*\{([^}]+)\}\s*([A-Za-z0-9_]*)\s*;", reOptions);
 
         static void Main(string[] args)
         {
@@ -107,7 +109,10 @@ namespace ParseHdf5Interface
                 for (int ii = 0; ii < piecesList.Count; ii++)
                 {
                    // if (isType[ii]) Program.ProcessType(piecesList[ii], sbout);
-                    if (isFunction[ii]) Program.ProcessFunction(piecesList[ii], sbout);
+                   // if (isFunction[ii]) Program.ProcessFunction(piecesList[ii], sbout);
+                   // if (isEnum[ii]) Program.ProcessEnum(piecesList[ii], sbout);
+                    if (isTypedefEnum[ii]) Program.ProcessTypedefEnum(piecesList[ii], sbout);
+
 
 
 
@@ -197,6 +202,90 @@ namespace ParseHdf5Interface
 
             return " ";
         }
+
+
+        public static String ProcessEnum(string line, StringBuilder sb)
+        {
+            Regex whitespaces = new Regex(@"\s+");
+            //var parts = whitespaces.Split(line.Trim().Trim(new char[] { ';' }));
+            //var fromType = String.Join(" ", parts.Skip(1).Reverse().Skip(1).Reverse().ToArray());
+            //var toType = parts.Last();
+            var match = reSimpleEnum.Match(line);
+            var enumName = match.Groups[1].Value;
+            var enumItems = match.Groups[2].Value;
+            var enumElements = enumItems.Split(',').Select(v => v.Trim()).ToArray();
+            //sb.AppendLine(String.Format("type {0} {1}", toType, fromType));
+            Console.WriteLine("Function --> {0}  in line {1}", "--", line);
+
+
+            sb.AppendLine("// " + line);
+            sb.AppendLine("type  " + enumName + " = ");
+            int ctr = 0;
+            for (int ii = 0; ii < enumElements.Length; ii++)
+            {
+                var item = enumElements[ii];
+                if (item.Contains("="))
+                {
+                    var enumElemName = Int32.Parse(item.Split('=').First().Trim());
+
+                    ctr = Int32.Parse(item.Split('=').Last().Trim());
+                    sb.AppendLine("    | " + enumElemName + " = " + ctr);
+                }
+                else
+                    sb.AppendLine("    | " + enumElements[ii] + " = " + ctr);
+                ctr++;
+            }
+            sb.AppendLine();
+            // Console.WriteLine("Function --> {0}  in line {1}", funname, trimmed);
+
+
+            return " ";
+        }
+
+
+
+        public static String ProcessTypedefEnum(string line, StringBuilder sb)
+        {
+            Regex whitespaces = new Regex(@"\s+");
+            //var parts = whitespaces.Split(line.Trim().Trim(new char[] { ';' }));
+            //var fromType = String.Join(" ", parts.Skip(1).Reverse().Skip(1).Reverse().ToArray());
+            //var toType = parts.Last();
+            var match = reTypedefEnum.Match(line);
+            var enumName = match.Groups[3].Value;
+            if(String.IsNullOrWhiteSpace(enumName))
+                enumName = match.Groups[1].Value;
+
+            var enumItems = match.Groups[2].Value;
+            var enumElements = enumItems.Split(',').Select(v => v.Trim()).ToArray();
+            //sb.AppendLine(String.Format("type {0} {1}", toType, fromType));
+            Console.WriteLine("Function --> {0}  in line {1}", "--", line);
+
+
+            sb.AppendLine("// " + line);
+            sb.AppendLine("type  " + enumName + " = ");
+            int ctr = 0;
+            for (int ii = 0; ii < enumElements.Length; ii++)
+            {
+                var item = enumElements[ii];
+                if (item.Contains("="))
+                {
+                    var enumElemName =item.Split('=').First().Trim();
+                    var numstring = item.Split('=').Last().Replace('(', ' ').Replace(')', ' ').Trim();
+     
+                    ctr = Int32.Parse(numstring);
+                    sb.AppendLine("    | " + enumElemName + " = " + ctr);
+                }
+                else
+                    sb.AppendLine("    | " + enumElements[ii] + " = " + ctr);
+                ctr++;
+            }
+            sb.AppendLine();
+            // Console.WriteLine("Function --> {0}  in line {1}", funname, trimmed);
+
+
+            return " ";
+        }
+
 
 
         // const char * is replaced by [< MarshalAs(UnmanagedType.LPStr) >] StringBuilder
