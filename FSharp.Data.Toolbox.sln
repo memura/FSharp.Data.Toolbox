@@ -25,9 +25,9 @@ Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "FSharp.Data.Toolbox.Sas", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "HDF5", "HDF5", "{06A31AEC-7A87-4FD9-9610-7B2FE63654F6}"
 EndProject
-Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BuildH5Wrapper", "BuildH5Wrapper\BuildH5Wrapper.fsproj", "{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}"
+Project("{F2A71F9B-5D33-465A-A702-920D77279786}") = "BuildH5Wrapper", "src\FSharp.Data.Toolbox.Hdf5\BuildH5Wrapper\BuildH5Wrapper.fsproj", "{C392F45C-3834-45B5-B9FD-DD54D23C6DDD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseHdf5Interface", "ParseHdf5Interface\ParseHdf5Interface.csproj", "{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParseHdf5Interface", "src\FSharp.Data.Toolbox.Hdf5\ParseHdf5Interface\ParseHdf5Interface.csproj", "{C2A9049D-6F38-4DE7-85B3-09C6DC143B08}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
